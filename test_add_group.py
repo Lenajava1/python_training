@@ -15,31 +15,31 @@ class TestAddGroup(unittest.TestCase):
     def test_add_group(self):
         wd = self.wd
         self.open_home_page(wd)
-        self.login(wd)
-        self.create_group(wd)
+        self.login(wd, username="admin", password="secret")
+        self.create_group(wd, name="test_new", header="test", footer="test")
         self.return_to_group_page(wd)
         self.logout(wd)
 
     def open_home_page(self, wd):
         wd.get("http://localhost/addressbook/group.php")
 
-    def login(self, wd):
+    def login(self, wd, username, password):
         wd.find_element(By.NAME, "user").clear()
-        wd.find_element(By.NAME, "user").send_keys("admin")
+        wd.find_element(By.NAME, "user").send_keys(username)
         wd.find_element(By.NAME, "pass").clear()
-        wd.find_element(By.NAME, "pass").send_keys("secret")
+        wd.find_element(By.NAME, "pass").send_keys(password)
         wd.find_element(By.XPATH, "//input[@value='Login']").click()
 
-    def create_group(self, wd):
+    def create_group(self, wd, name, header, footer):
         # init group creation
         wd.find_element(By.NAME, "new").click()
         wd.find_element(By.NAME, "group_name").clear()
         # fill group form
-        wd.find_element(By.NAME, "group_name").send_keys("test_new")
+        wd.find_element(By.NAME, "group_name").send_keys(name)
         wd.find_element(By.NAME, "group_header").clear()
-        wd.find_element(By.NAME, "group_header").send_keys("test")
+        wd.find_element(By.NAME, "group_header").send_keys(header)
         wd.find_element(By.NAME, "group_footer").clear()
-        wd.find_element(By.NAME, "group_footer").send_keys("test")
+        wd.find_element(By.NAME, "group_footer").send_keys(footer)
         # submit group creation
         wd.find_element(By.NAME, "submit").click()
 
@@ -49,6 +49,15 @@ class TestAddGroup(unittest.TestCase):
 
     def logout(self, wd):
         wd.find_element(By.LINK_TEXT, "Logout").click()
+
+
+    def test_add_empty_group(self):
+        wd = self.wd
+        self.open_home_page(wd)
+        self.login(wd, username="admin", password="secret")
+        self.create_group(wd, name="", header="", footer="")
+        self.return_to_group_page(wd)
+        self.logout(wd)
 
 
     def is_element_present(self, how, what):
