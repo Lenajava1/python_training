@@ -14,31 +14,42 @@ class TestAddGroup(unittest.TestCase):
 
     def test_add_group(self):
         wd = self.wd
+        self.open_home_page(wd)
+        self.login(wd)
+        self.create_group(wd)
+        self.return_to_group_page(wd)
+        self.logout(wd)
+
+    def open_home_page(self, wd):
         wd.get("http://localhost/addressbook/group.php")
 
-        # Login
+    def login(self, wd):
         wd.find_element(By.NAME, "user").clear()
         wd.find_element(By.NAME, "user").send_keys("admin")
         wd.find_element(By.NAME, "pass").clear()
         wd.find_element(By.NAME, "pass").send_keys("secret")
         wd.find_element(By.XPATH, "//input[@value='Login']").click()
 
-        # Add group
+    def create_group(self, wd):
+        # init group creation
         wd.find_element(By.NAME, "new").click()
         wd.find_element(By.NAME, "group_name").clear()
+        # fill group form
         wd.find_element(By.NAME, "group_name").send_keys("test_new")
         wd.find_element(By.NAME, "group_header").clear()
         wd.find_element(By.NAME, "group_header").send_keys("test")
         wd.find_element(By.NAME, "group_footer").clear()
         wd.find_element(By.NAME, "group_footer").send_keys("test")
+        # submit group creation
         wd.find_element(By.NAME, "submit").click()
 
-        # Wait and verify group creation
-        WebDriverWait(wd, 10).until(EC.presence_of_element_located((By.LINK_TEXT, "group page")))
+    def return_to_group_page(self, wd):
         wd.find_element(By.LINK_TEXT, "group page").click()
 
-        # Logout
+
+    def logout(self, wd):
         wd.find_element(By.LINK_TEXT, "Logout").click()
+
 
     def is_element_present(self, how, what):
         try:
