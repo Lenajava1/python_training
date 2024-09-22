@@ -1,9 +1,6 @@
 # -*- coding: utf-8 -*-
 from selenium.webdriver.firefox.webdriver import WebDriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import NoSuchElementException, NoAlertPresentException
 import unittest
 from group import Group
 
@@ -58,20 +55,6 @@ class TestAddGroup(unittest.TestCase):
 
     def logout(self, wd):
         wd.find_element(By.LINK_TEXT, "Logout").click()
-
-    def is_element_present(self, how, what):
-        try:
-            self.wd.find_element(by=how, value=what)
-        except NoSuchElementException:
-            return False
-        return True
-
-    def is_alert_present(self):
-        try:
-            self.wd.switch_to.alert
-        except NoAlertPresentException:
-            return False
-        return True
 
     def tearDown(self):
         self.wd.quit()
