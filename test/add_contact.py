@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import pytest
-from contact import Contact
-from super_test import SuperTest
+from model.contact import Contact
+from fixture.super_test import SuperTest
 
 @pytest.fixture()
 def super_test(request):
