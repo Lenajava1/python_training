@@ -3,13 +3,17 @@ from selenium.webdriver.support.ui import Select
 
 class ContactHelper:
 
-    def __init__(self, super_test):
-        self.super_test = super_test
+    def __init__(self, app):
+        self.app = app
+
+    def open_add_new_contact(self):
+        wd = self.app.wd
+        wd.find_element(By.LINK_TEXT, "add new").click()
+
 
     def create(self, contact):
-        wd = self.super_test.wd
-        # Add new contact
-        wd.find_element(By.LINK_TEXT, "add new").click()
+        wd = self.app.wd
+        self.open_add_new_contact()
         # fill contact form
         wd.find_element(By.NAME, "firstname").clear()
         wd.find_element(By.NAME, "firstname").send_keys(contact.firstname)
@@ -36,3 +40,8 @@ class ContactHelper:
         wd.find_element(By.NAME, "byear").send_keys("1994")
         # Submit the form
         wd.find_element(By.XPATH, "//input[@type='submit']").click()
+
+    def delete_all_contacts(self):
+        wd = self.app.wd
+        wd.find_element(By.ID, "MassCB").click()
+        wd.find_element(By.XPATH, "//input[@value='Delete']").click()
