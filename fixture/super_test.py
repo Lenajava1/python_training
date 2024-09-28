@@ -1,16 +1,16 @@
 from selenium.webdriver.firefox.webdriver import WebDriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import Select
+from fixture.session2 import Session2Helper
+
 
 class SuperTest:
 
       def __init__(self):
           self.wd = WebDriver()
           self.wd.implicitly_wait(30)
+          self.session2 = Session2Helper(self)
 
-      def logout(self):
-          wd = self.wd
-          wd.find_element(By.LINK_TEXT, "Logout").click()
 
       def create_contact(self, contact):
           wd = self.wd
@@ -43,15 +43,6 @@ class SuperTest:
           # Submit the form
           wd.find_element(By.XPATH, "//input[@type='submit']").click()
 
-      def login(self, username, password):
-          wd = self.wd
-          self.open_home_page()
-          # Login
-          wd.find_element(By.NAME, "user").clear()
-          wd.find_element(By.NAME, "user").send_keys(username)
-          wd.find_element(By.NAME, "pass").clear()
-          wd.find_element(By.NAME, "pass").send_keys(password)
-          wd.find_element(By.XPATH, "//input[@value='Login']").click()
 
       def open_home_page(self):
           wd = self.wd
