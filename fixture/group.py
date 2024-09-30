@@ -39,20 +39,8 @@ class GroupHelper:
         self.return_to_group_page()
 
     def edit_first_group(self, group):
-        wd = self.app.wd
-        self.open_group_page()
-        wd.find_element(By.XPATH, "(//input[@name='selected[]'])[1]").click()
-        wd.find_element(By.NAME, "edit").click()
-        wd.find_element(By.NAME, "group_name").clear()
-        # edit group form
-        wd.find_element(By.NAME, "group_name").send_keys(group.name)
-        wd.find_element(By.NAME, "group_header").clear()
-        wd.find_element(By.NAME, "group_header").send_keys(group.header)
-        wd.find_element(By.NAME, "group_footer").clear()
-        wd.find_element(By.NAME, "group_footer").send_keys(group.footer)
-        # Update group edition
-        wd.find_element(By.NAME, "update").click()
-        self.return_to_group_page()
+        self.create(group)
+
 
 
 
