@@ -24,16 +24,16 @@ class ContactHelper:
         self.return_to_home()
 
     def fill_contact_form(self, contact):
-        self.change_field_name("firstname", contact.firstname)
-        self.change_field_name("middlename", contact.middlename)
-        self.change_field_name("nickname", contact.nickname)
-        self.change_field_name( "title", contact.title)
-        self.change_field_name("company", contact.company_name)
-        self.change_field_name("address", contact.address)
-        self.change_field_name("mobile", contact.mobile)
-        self.change_field_name("email", contact.email)
+        self.change_field_value("firstname", contact.firstname)
+        self.change_field_value("middlename", contact.middlename)
+        self.change_field_value("nickname", contact.nickname)
+        self.change_field_value("title", contact.title)
+        self.change_field_value("company", contact.company_name)
+        self.change_field_value("address", contact.address)
+        self.change_field_value("mobile", contact.mobile)
+        self.change_field_value("email", contact.email)
 
-    def change_field_name(self, field_name, text):
+    def change_field_value(self, field_name, text):
         wd = self.app.wd
         if text is not None:
             wd.find_element(By.NAME, field_name).click()
