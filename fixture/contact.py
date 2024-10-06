@@ -70,5 +70,11 @@ class ContactHelper:
         wd.find_element(By.XPATH, "(//input[@name='update'])[1]")
         self.return_to_home()
 
+    def count(self):
+        wd = self.app.wd
+        self.return_to_home()
+        return len(wd.find_elements(By.XPATH, "//input[@type='checkbox']")) > 1
+
+
 
 
