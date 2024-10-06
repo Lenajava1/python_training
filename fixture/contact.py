@@ -67,7 +67,7 @@ class ContactHelper:
         #fill contact form
         self.fill_contact_form(new_contact_data)
         #submit form
-        wd.find_element(By.XPATH, "(//input[@name='update'])[1]")
+        wd.find_element(By.XPATH, "(//input[@name='update'])[2]")
         self.return_to_home()
 
     def count(self):
