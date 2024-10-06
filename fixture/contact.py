@@ -1,5 +1,4 @@
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import Select
 
 class ContactHelper:
 
@@ -10,9 +9,14 @@ class ContactHelper:
         wd = self.app.wd
         wd.find_element(By.LINK_TEXT, "add new").click()
 
+    def return_to_home_page(self):
+        wd = self.app.wd
+        if not (wd.current_url.endswith("/edit.php") and len(wd.find_elements(By.LINK_TEXT, "add next")) > 0):
+            wd.find_element(By.LINK_TEXT, "home page").click()
+
     def return_to_home(self):
         wd = self.app.wd
-        wd.find_element(By.XPATH, "(//a[contains(text(),'home')])[1]").click()
+        wd.find_element(By.LINK_TEXT, "home").click()
 
     def create(self, contact):
         wd = self.app.wd
@@ -21,7 +25,7 @@ class ContactHelper:
         self.fill_contact_form(contact)
         # Submit the form
         wd.find_element(By.XPATH, "//input[@type='submit']").click()
-        self.return_to_home()
+        self.return_to_home_page()
 
     def fill_contact_form(self, contact):
         self.change_field_value("firstname", contact.firstname)
@@ -45,7 +49,7 @@ class ContactHelper:
         self.return_to_home()
         self.select_first_contact()
         wd.find_element(By.XPATH, "//input[@value='Delete']").click()
-        self.return_to_home()
+        wd.find_element(By.XPATH, "//a[contains(text(),'home')]").click()
 
     def select_first_contact(self):
         wd = self.app.wd
@@ -56,7 +60,7 @@ class ContactHelper:
         self.return_to_home()
         wd.find_element(By.ID, "MassCB").click()
         wd.find_element(By.XPATH, "//input[@value='Delete']").click()
-        self.return_to_home()
+        wd.find_element(By.XPATH, "//a[contains(text(),'home')]").click()
 
     def edit_first_contact(self, new_contact_data):
         wd = self.app.wd
