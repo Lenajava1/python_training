@@ -6,7 +6,7 @@ from model.contact import Contact
 def test_add_contact(app):
     contact = Contact(firstname="Elena", middlename="Evgenievna", lastname="Mutykova", nickname="Lena", title="QA Engineer", company_name="VirtoCommerce", address="Hungary, Budapest", mobile="+3665765675675", email="mutykovaelena@gmail.com")
     if app.contact.count() == 0:
-        app.contact.create(contact)
+       app.contact.create(contact)
     old_contacts = app.contact.get_contact_list()
     app.contact.create(contact)
     new_contacts = app.contact.get_contact_list()
