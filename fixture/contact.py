@@ -1,4 +1,9 @@
+from gettext import gettext
+
 from selenium.webdriver.common.by import By
+
+from model.contact import Contact
+
 
 class ContactHelper:
 
@@ -29,6 +34,7 @@ class ContactHelper:
 
     def fill_contact_form(self, contact):
         self.change_field_value("firstname", contact.firstname)
+        self.change_field_value("lastname", contact.lastname)
         self.change_field_value("middlename", contact.middlename)
         self.change_field_value("nickname", contact.nickname)
         self.change_field_value("title", contact.title)
@@ -77,7 +83,20 @@ class ContactHelper:
     def count(self):
         wd = self.app.wd
         self.return_to_home()
-        return len(wd.find_elements(By.XPATH, "//input[@type='checkbox']")) > 1
+        return len(wd.find_elements(By.CSS_SELECTOR, 'td')) > 0
+
+    def get_contact_list(self):
+        wd = self.app.wd
+        self.return_to_home()
+        contacts = []
+        for element in wd.find_elements(By.CSS_SELECTOR, 'tr'):
+            last_name = element.find_element(By.XPATH, "//*[@id='maintable']/tbody[1]/tr[2]/td[2]").text
+            first_name = element.find_element(By.XPATH, "//*[@id='maintable']/tbody[1]/tr[2]/td[3]").text
+            id = element.find_element(By.XPATH, "//input[@name='selected[]']").get_attribute('value')
+            contacts.append(Contact(lastname=last_name, firstname=first_name, id=id))
+        return contacts
+
+
 
 
 
