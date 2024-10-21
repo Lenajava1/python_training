@@ -52,9 +52,13 @@ class ContactHelper:
             wd.find_element(By.NAME, field_name).send_keys(text)
 
     def delete_first_contact(self):
+        self.delete_contact_by_index(0)
+
+
+    def delete_contact_by_index(self, index):
         wd = self.app.wd
         self.return_to_home()
-        self.select_first_contact()
+        self.select_contact_by_index(index)
         wd.find_element(By.XPATH, "//input[@value='Delete']").click()
         wd.find_element(By.XPATH, "//a[contains(text(),'home')]").click()
         self.contact_cache = None
@@ -62,6 +66,10 @@ class ContactHelper:
     def select_first_contact(self):
         wd = self.app.wd
         wd.find_element(By.XPATH, "(//input[@type='checkbox'])[1]").click()
+
+    def select_contact_by_index(self, index):
+        wd = self.app.wd
+        wd.find_elements(By.XPATH, "//input[@type='checkbox']")[index].click()
 
     def delete_all_contacts(self):
         wd = self.app.wd
@@ -71,10 +79,14 @@ class ContactHelper:
         wd.find_element(By.XPATH, "//a[contains(text(),'home')]").click()
         self.contact_cache = None
 
-    def edit_first_contact(self, new_contact_data):
+    def edit_first_contact(self):
+        self.edit_contact_by_index(0)
+
+
+    def edit_contact_by_index(self, index, new_contact_data):
         wd = self.app.wd
         self.return_to_home()
-        self.select_first_contact()
+        self.select_contact_by_index(index)
         # open edit form
         wd.find_element(By.XPATH,"(//img[@title='Edit'])[1]").click()
         #fill contact form
@@ -87,7 +99,7 @@ class ContactHelper:
     def count(self):
         wd = self.app.wd
         self.return_to_home()
-        return len(wd.find_elements(By.CSS_SELECTOR, 'tr'))
+        return len(wd.find_elements(By.XPATH, "//tr[@name='entry']"))
 
     contact_cache= None
 
@@ -96,7 +108,7 @@ class ContactHelper:
             wd = self.app.wd
             self.return_to_home()
             self.contact_cache = []
-            for element in wd.find_elements(By.CSS_SELECTOR, 'tr'):
+            for element in wd.find_elements(By.XPATH, "//tr[@name='entry']"):
                 last_name = element.find_element(By.XPATH, "//*[@id='maintable']/tbody[1]/tr[2]/td[2]").text
                 first_name = element.find_element(By.XPATH, "//*[@id='maintable']/tbody[1]/tr[2]/td[3]").text
                 id = element.find_element(By.XPATH, "//input[@name='selected[]']").get_attribute('value')
