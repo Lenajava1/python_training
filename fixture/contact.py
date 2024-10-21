@@ -93,7 +93,7 @@ class ContactHelper:
             last_name = element.find_element(By.XPATH, "//*[@id='maintable']/tbody[1]/tr[2]/td[2]").text
             first_name = element.find_element(By.XPATH, "//*[@id='maintable']/tbody[1]/tr[2]/td[3]").text
             id = element.find_element(By.XPATH, "//input[@name='selected[]']").get_attribute('value')
-            contacts.append(Contact(lastname=last_name, firstname=first_name, id=id))
+            contacts.append(Contact(id=id, lastname=last_name, firstname=first_name))
         return contacts
 
 
