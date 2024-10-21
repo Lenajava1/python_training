@@ -31,6 +31,7 @@ class ContactHelper:
         # Submit the form
         wd.find_element(By.XPATH, "//input[@type='submit']").click()
         self.return_to_home_page()
+        self.contact_cache = None
 
     def fill_contact_form(self, contact):
         self.change_field_value("firstname", contact.firstname)
@@ -56,6 +57,7 @@ class ContactHelper:
         self.select_first_contact()
         wd.find_element(By.XPATH, "//input[@value='Delete']").click()
         wd.find_element(By.XPATH, "//a[contains(text(),'home')]").click()
+        self.contact_cache = None
 
     def select_first_contact(self):
         wd = self.app.wd
@@ -67,6 +69,7 @@ class ContactHelper:
         wd.find_element(By.ID, "MassCB").click()
         wd.find_element(By.XPATH, "//input[@value='Delete']").click()
         wd.find_element(By.XPATH, "//a[contains(text(),'home')]").click()
+        self.contact_cache = None
 
     def edit_first_contact(self, new_contact_data):
         wd = self.app.wd
@@ -79,22 +82,26 @@ class ContactHelper:
         #submit form
         wd.find_element(By.XPATH, "(//input[@name='update'])[1]").click()
         self.return_to_home()
+        self.contact_cache = None
 
     def count(self):
         wd = self.app.wd
         self.return_to_home()
-        return len(wd.find_elements(By.CSS_SELECTOR, 'td')) > 0
+        return len(wd.find_elements(By.CSS_SELECTOR, 'tr'))
+
+    contact_cache= None
 
     def get_contact_list(self):
-        wd = self.app.wd
-        self.return_to_home()
-        contacts = []
-        for element in wd.find_elements(By.CSS_SELECTOR, 'tr'):
-            last_name = element.find_element(By.XPATH, "//*[@id='maintable']/tbody[1]/tr[2]/td[2]").text
-            first_name = element.find_element(By.XPATH, "//*[@id='maintable']/tbody[1]/tr[2]/td[3]").text
-            id = element.find_element(By.XPATH, "//input[@name='selected[]']").get_attribute('value')
-            contacts.append(Contact(id=id, lastname=last_name, firstname=first_name))
-        return contacts
+        if self.contact_cache is None:
+            wd = self.app.wd
+            self.return_to_home()
+            self.contact_cache = []
+            for element in wd.find_elements(By.CSS_SELECTOR, 'tr'):
+                last_name = element.find_element(By.XPATH, "//*[@id='maintable']/tbody[1]/tr[2]/td[2]").text
+                first_name = element.find_element(By.XPATH, "//*[@id='maintable']/tbody[1]/tr[2]/td[3]").text
+                id = element.find_element(By.XPATH, "//input[@name='selected[]']").get_attribute('value')
+                self.contact_cache.append(Contact(id=id, lastname=last_name, firstname=first_name))
+        return list(self.contact_cache)
 
 
 
