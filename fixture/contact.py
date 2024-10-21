@@ -83,7 +83,7 @@ class ContactHelper:
     def count(self):
         wd = self.app.wd
         self.return_to_home()
-        return len(wd.find_elements(By.CSS_SELECTOR, 'td')) > 0
+        return len(wd.find_elements(By.CSS_SELECTOR, 'td'))
 
     def get_contact_list(self):
         wd = self.app.wd
