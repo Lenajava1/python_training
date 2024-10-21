@@ -66,7 +66,7 @@ class GroupHelper:
     def count(self):
         wd = self.app.wd
         self.open_group_page()
-        return len(wd.find_elements(By.NAME, "selected[]")) > 0
+        return len(wd.find_elements(By.NAME, "selected[]"))
 
     def get_group_list(self):
         wd = self.app.wd
