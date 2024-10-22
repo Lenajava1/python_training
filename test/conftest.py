@@ -21,7 +21,6 @@ def stop(request):
     global fixture
 
     def fin():
-        fixture = Application()
         fixture.session.ensure_logout()
         fixture.destroy()
 
