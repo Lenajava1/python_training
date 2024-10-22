@@ -109,8 +109,8 @@ class ContactHelper:
             self.return_to_home()
             self.contact_cache = []
             for element in wd.find_elements(By.XPATH, "//tr[@name='entry']"):
-                last_name = element.find_element(By.XPATH, "//*[@id='maintable']/tbody[1]/tr[2]/td[2]").text
-                first_name = element.find_element(By.XPATH, "//*[@id='maintable']/tbody[1]/tr[2]/td[3]").text
+                last_name = element.find_element(By.XPATH, "//tr[@name='entry']/td[2]").text
+                first_name = element.find_element(By.XPATH, "//tr[@name='entry']/td[3]").text
                 id = element.find_element(By.XPATH, "//input[@name='selected[]']").get_attribute('value')
                 self.contact_cache.append(Contact(id=id, lastname=last_name, firstname=first_name))
         return list(self.contact_cache)
