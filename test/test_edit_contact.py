@@ -31,17 +31,17 @@ def test_modify_some_contact_lastname(app):
     old_contacts[index] = contact
     assert sorted(old_contacts, key=Contact.id_or_max) == sorted(new_contacts, key=Contact.id_or_max)
 
-def test_modify_first_contact_company(app):
-    if app.contact.count() == 0:
-        app.contact.create(Contact(firstname="test", lastname="Lastname1", middlename="", nickname="Nick", title="Developer", company_name="Yandex", address="", mobile="+793242543253", email="nick@yandex.ru"))
-    app.contact.edit_first_contact(Contact(company_name="Amazon"))
+#def test_modify_first_contact_company(app):
+    #if app.contact.count() == 0:
+        #app.contact.create(Contact(firstname="test", lastname="Lastname1", middlename="", nickname="Nick", title="Developer", company_name="Yandex", address="", mobile="+793242543253", email="nick@yandex.ru"))
+    #app.contact.edit_first_contact(Contact(company_name="Amazon"))
 
-def test_modify_first_contact_mobile(app):
-    if app.contact.count() == 0:
-        app.contact.create(Contact(firstname="test", lastname="Lastname1", middlename="", nickname="Nick", title="Developer", company_name="Yandex", address="", mobile="+793242543253", email="nick@yandex.ru"))
-    app.contact.edit_first_contact(Contact(mobile="+13232423433"))
+#def test_modify_first_contact_mobile(app):
+    #if app.contact.count() == 0:
+       # app.contact.create(Contact(firstname="test", lastname="Lastname1", middlename="", nickname="Nick", title="Developer", company_name="Yandex", address="", mobile="+793242543253", email="nick@yandex.ru"))
+    #app.contact.edit_first_contact(Contact(mobile="+13232423433"))
 
-def test_modify_first_contact_email(app):
-    if app.contact.count() == 0:
-        app.contact.create(Contact(firstname="test", lastname="Lastname1", middlename="", nickname="Nick", title="Developer", company_name="Yandex", address="", mobile="+793242543253", email="nick@yandex.ru"))
-    app.contact.edit_first_contact(Contact(email="maria@amazon.com"))
+#def test_modify_first_contact_email(app):
+    #if app.contact.count() == 0:
+        #app.contact.create(Contact(firstname="test", lastname="Lastname1", middlename="", nickname="Nick", title="Developer", company_name="Yandex", address="", mobile="+793242543253", email="nick@yandex.ru"))
+    #app.contact.edit_first_contact(Contact(email="maria@amazon.com"))

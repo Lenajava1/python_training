@@ -1,4 +1,5 @@
 from gettext import gettext
+from operator import index
 
 from selenium.webdriver.common.by import By
 
@@ -79,16 +80,29 @@ class ContactHelper:
         wd.find_element(By.XPATH, "//a[contains(text(),'home')]").click()
         self.contact_cache = None
 
-    def edit_first_contact(self):
-        self.edit_contact_by_index(0)
+    def edit_first_contact(self,new_contact_data):
+        wd = self.app.wd
+        self.return_to_home()
+        # open edit form
+        self.select_edit_by_index(1)
+        #fill contact form
+        self.fill_contact_form(new_contact_data)
+        #submit form
+        wd.find_element(By.XPATH, "(//input[@name='update'])[1]").click()
+        self.return_to_home()
+        self.contact_cache = None
 
+
+    def select_edit_by_index(self,index):
+        wd = self.app.wd
+        self.return_to_home()
+        wd.find_elements(By.XPATH, "//img[@title='Edit']")[index].click()
 
     def edit_contact_by_index(self, index, new_contact_data):
         wd = self.app.wd
         self.return_to_home()
-        self.select_contact_by_index(index)
         # open edit form
-        wd.find_element(By.XPATH,"(//img[@title='Edit'])[1]").click()
+        self.select_edit_by_index(index)
         #fill contact form
         self.fill_contact_form(new_contact_data)
         #submit form
