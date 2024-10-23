@@ -11,7 +11,7 @@ def app(request):
         fixture = Application()
     else:
         if not fixture.is_valid():
-            fixture = Application()
+               fixture = Application()
     fixture.session.ensure_login(username="admin", password="secret")
     return fixture
 

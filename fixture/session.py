@@ -17,8 +17,8 @@ class SessionHelper:
 
      def logout(self):
          wd = self.app.wd
-          #wd.find_element(By.LINK_TEXT, "Logout").click()
-         wd.find_element(By.XPATH, "//a[contains(text(),'Logout')]").click()
+         wd.find_element(By.NAME, "logout").click()
+         #wd.find_element(By.XPATH, "//a[contains(text(),'Logout')]").click()
 
      def ensure_logout(self):
          wd = self.app.wd
@@ -27,7 +27,7 @@ class SessionHelper:
 
      def is_logged_in(self):
          wd = self.app.wd
-         return len(wd.find_elements(By.LINK_TEXT, "Logout")) > 0
+         return len(wd.find_elements(By.NAME, "logout")) > 0
 
      def get_user_name(self):
          wd = self.app.wd
