@@ -4,7 +4,7 @@ from itertools import count
 from model.contact import Contact
 
 def test_add_contact(app):
-    contact = Contact(firstname="Elena", middlename="Evgenievna", lastname="Mutykova", nickname="Lena", title="QA Engineer", company_name="VirtoCommerce", address="Hungary, Budapest", mobile="+3665765675675", homephone="232-23-23", workphone="(31)31-134-33", fax="67676-228(0)", email="mutykovaelena@gmail.com")
+    contact = Contact(firstname="Elena", middlename="Evgenievna", lastname="Willson", nickname="Lena", title="QA Engineer", company_name="VirtoCommerce", address="Hungary, Budapest", mobile="+3665765675675", homephone="232-23-23", workphone="(31)31-134-33", fax="67676-228(0)", email="mutykovaelena@gmail.com")
     if app.contact.count() == 0:
        app.contact.create(contact)
     old_contacts = app.contact.get_contact_list()
