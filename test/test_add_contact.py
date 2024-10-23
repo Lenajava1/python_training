@@ -1,10 +1,34 @@
 # -*- coding: utf-8 -*-
-from itertools import count
 
 from model.contact import Contact
+import pytest
+import random
+import string
 
-def test_add_contact(app):
-    contact = Contact(firstname="Elena", middlename="Evgenievna", lastname="Willson", nickname="Lena", title="QA Engineer", company_name="VirtoCommerce", address="Hungary, Budapest", mobile="+3665765675675", homephone="232-23-23", workphone="(31)31-134-33", fax="67676-228(0)", email="mutykovaelena@gmail.com")
+def random_string(prefix, maxlen):
+    symbols = string.ascii_letters + string.digits + string.punctuation + " "*10
+    return prefix + "".join([random.choice(symbols) for i in range(random.randrange(maxlen))])
+
+
+testdata = [Contact(firstname="", lastname="", middlename="", nickname="", title="", company_name="", address="", homephone="", workphone="", fax="", email="")] + [
+Contact(firstname=random_string("firstname", 5),
+        lastname=random_string("lastname", 10),
+        middlename=random_string("middlename", 8),
+        nickname=random_string("nickname", 3),
+        title=random_string("title", 8),
+        company_name=random_string("company", 16),
+        address=random_string("address", 20),
+        mobile=random_string("", 10),
+        homephone=random_string("", 10),
+        workphone=random_string("", 12),
+        email=random_string("", 8))
+
+for i in range(5)
+
+]
+
+@pytest.mark.parametrize("contact", testdata, ids=(repr(x) for x in testdata))
+def test_add_contact(app, contact):
     if app.contact.count() == 0:
        app.contact.create(contact)
     old_contacts = app.contact.get_contact_list()
