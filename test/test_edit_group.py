@@ -1,21 +1,17 @@
-from itertools import count
-from tokenize import group
-
+import random
 from model.group import Group
-from random import randrange
 
 
-def test_modify_group_name(app):
+
+def test_modify_group_name(app, db, check_ui):
     if app.group.count() == 0:
         app.group.create(Group(name="my-group"))
-    old_groups = app.group.get_group_list()
-    index = randrange(len(old_groups))
-    group = Group(name="modified_group_name")
-    group.id = old_groups[index].id
-    app.group.edit_group_by_index(index, group)
+    old_groups = db.get_group_list()
+    group = random.choice(old_groups)
+    app.group.edit_group_by_id(group.id, Group(name="New_test_name", header="New_test_header", footer="New_test_footer"))
     assert len(old_groups) == app.group.count()
-    new_groups = app.group.get_group_list()
-    old_groups[index] = group
+    new_groups = db.get_group_list()
+    #old_groups[group.id] = group
     assert sorted(old_groups, key=Group.id_or_max) == sorted(new_groups, key=Group.id_or_max)
 
 #def test_modify_group_header(app):

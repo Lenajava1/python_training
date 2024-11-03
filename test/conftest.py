@@ -42,6 +42,11 @@ def db(request):
         request.addfinalizer(fin)
     return dbfixture
 
+@pytest.fixture
+def check_ui(request):
+     return request.config.getoption("--check_ui")
+
+
 @pytest.fixture(scope="session", autouse=True)
 def stop(request):
     def fin():
@@ -51,9 +56,12 @@ def stop(request):
     request.addfinalizer(fin)
     return fixture
 
+
 def pytest_addoption(parser):
     parser.addoption("--browser", action="store", default="firefox")
     parser.addoption("--target", action="store", default="target.json")
+    parser.addoption("--check_ui", action="store_true")
+
 
 def pytest_generate_tests(metafunc):
     for fixture in metafunc.fixturenames:
@@ -68,7 +76,7 @@ def load_from_module(module):
      return importlib.import_module("data.%s" % module).testdata
 
 def load_from_json(file):
-     with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "data/%s.json" % file)) as f:
+      with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "data/%s.json" % file)) as f:
          return jsonpickle.decode(f.read())
 
 
