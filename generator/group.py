@@ -1,4 +1,3 @@
-from xml.etree.ElementTree import indent
 import jsonpickle
 from model.group import Group
 import random
@@ -44,4 +43,3 @@ file = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", f)
 with open(file, "w") as out:
     jsonpickle.set_encoder_options("json", indent=2)
     out.write(jsonpickle.encode(testdata))
-    #out.write(json.dumps(testdata, default=lambda x: x.__dict__, indent=2))
