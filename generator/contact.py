@@ -31,17 +31,6 @@ def random_string(prefix, maxlen):
     symbols = string.ascii_letters + string.digits + string.punctuation + " "*10
     return prefix + "".join([random.choice(symbols) for i in range(random.randrange(maxlen))])
 
-def random_telephone(prefix, maxlen):
-    symbols = string.digits*20
-    return prefix + "".join([random.choice(symbols) for i in range(random.randrange(maxlen))])
-
-def random_email(maxlen1,maxlen2):
-    characters = string.ascii_lowercase + string.digits
-    domains = ["gmail.com", "yahoo.com", "hotmail.com", "outlook.com"]
-    username = ''.join(random.choices(characters, k=random.randint(maxlen1,maxlen2)))
-    domain = random.choice(domains)
-    return f"{username}@{domain}"
-
 
 testdata = [Contact(firstname="", lastname="", middlename="", nickname="", title="", company_name="", address="", homephone="", workphone="", fax="", email="")] + [
 Contact(
@@ -52,10 +41,6 @@ Contact(
     title=random_string("title", 8),
     company_name=random_string("company", 16),
     address=random_string("address", 20),
-    mobile=random_telephone("+36", 20),
-    homephone=random_telephone("(323)", 20),
-    workphone=random_telephone("8(922)", 20),
-    email=random_email(5, 10))
 
 for i in range(n)
 
@@ -66,4 +51,3 @@ file = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", f)
 with open(file, "w") as out:
     jsonpickle.set_encoder_options("json", indent=2)
     out.write(jsonpickle.encode(testdata))
-
