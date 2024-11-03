@@ -27,10 +27,10 @@ for i in range(5)
 
 ]
 
-@pytest.mark.parametrize("contact", testdata, ids=(repr(x) for x in testdata))
+@pytest.mark.parametrize("contact", testdata, ids=[repr(x) for x in testdata])
 def test_add_contact(app, contact):
-    if app.contact.count() == 0:
-       app.contact.create(contact)
+    #if app.contact.count() == 0:
+       #app.contact.create(contact)
     old_contacts = app.contact.get_contact_list()
     app.contact.create(contact)
     assert len(old_contacts) + 1 == app.contact.count()

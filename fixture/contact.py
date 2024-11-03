@@ -18,8 +18,13 @@ class ContactHelper:
 
     def return_to_home_page(self):
         wd = self.app.wd
-        if not (wd.current_url.endswith("/edit.php") and len(wd.find_elements(By.LINK_TEXT, "add next")) > 0):
-            wd.find_element(By.LINK_TEXT, "home page").click()
+        if not (wd.current_url.endswith("/addressbook/edit.php") and len(wd.find_elements(By.LINK_TEXT, "add next")) > 0):
+              wd.find_element(By.LINK_TEXT, "home").click()
+
+    #def return_to_home_page(self):
+        #wd = self.app.wd
+        #if not wd.current_url.endswith("/addressbook/edit.php"):
+            #wd.find_element(By.LINK_TEXT, "home page").click()
 
     def return_to_home(self):
         wd = self.app.wd
