@@ -156,8 +156,7 @@ class ContactHelper:
         homephone = re.search("H: (.*)", text).group(1)
         mobile = re.search("M: (.*)", text).group(1)
         workphone = re.search("W: (.*)", text).group(1)
-        fax = re.search("F: (.*)", text).group(1)
-        return Contact(homephone=homephone, workphone=workphone, mobile=mobile, fax=fax)
+        return Contact(homephone=homephone, workphone=workphone, mobile=mobile)
 
 
 

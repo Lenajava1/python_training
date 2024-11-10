@@ -55,6 +55,7 @@ Contact(
     mobile=random_telephone("+36", 15),
     homephone=random_telephone("(323)", 15),
     workphone=random_telephone("8(922)", 15),
+    fax=random_telephone("8(922)", 15),
     email=random_email(5, 10))
 
 for i in range(n)
