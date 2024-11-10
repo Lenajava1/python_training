@@ -74,6 +74,18 @@ class ContactHelper:
         wd.find_element(By.XPATH, "//a[contains(text(),'home')]").click()
         self.contact_cache = None
 
+    def delete_contact_by_id(self, id):
+        wd = self.app.wd
+        self.return_to_home()
+        self.select_contact_by_id(id)
+        wd.find_element(By.XPATH, "//input[@value='Delete']").click()
+        wd.find_element(By.XPATH, "//a[contains(text(),'home')]").click()
+        self.contact_cache = None
+
+    def select_contact_by_id(self, id):
+        wd = self.app.wd
+        wd.find_element(By.CSS_SELECTOR, "input[value='%s']" % id).click()
+
     def select_first_contact(self):
         wd = self.app.wd
         wd.find_element(By.XPATH, "(//input[@type='checkbox'])[1]").click()
@@ -121,6 +133,25 @@ class ContactHelper:
         wd.find_element(By.XPATH, "(//input[@name='update'])[1]").click()
         self.return_to_home()
         self.contact_cache = None
+
+    def edit_contact_by_id(self, id, new_contact_data):
+        wd = self.app.wd
+        self.return_to_home()
+        # open edit form
+        self.select_edit_by_id(id)
+        #fill contact form
+        self.fill_contact_form(new_contact_data)
+        #submit form
+        wd.find_element(By.XPATH, "(//input[@name='update'])[1]").click()
+        self.return_to_home()
+        self.contact_cache = None
+
+    def select_edit_by_id(self,id):
+        wd = self.app.wd
+        self.return_to_home()
+        wd.find_element(By.CSS_SELECTOR, "input[id='%s']" % id).click()
+        #cell = row.find_elements(By.TAG_NAME, "td")[7]
+        wd.find_element(By.CSS_SELECTOR, f"a[href='edit.php?id={id}']").click()
 
     def open_contact_view_by_index(self, index):
         wd = self.app.wd
@@ -184,6 +215,8 @@ class ContactHelper:
                                                   all_emails_from_home_page=all_emails_from_home_page,
                                                   all_phones_from_home_page=all_phones))
         return list(self.contact_cache)
+
+
 
 
 

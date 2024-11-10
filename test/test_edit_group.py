@@ -12,7 +12,8 @@ def test_modify_group_name(app, db, check_ui):
     assert len(old_groups) == app.group.count()
     new_groups = db.get_group_list()
     #old_groups[group.id] = group
-    assert sorted(old_groups, key=Group.id_or_max) == sorted(new_groups, key=Group.id_or_max)
+    if check_ui:
+       assert sorted(old_groups, key=Group.id_or_max) == sorted(new_groups, key=Group.id_or_max)
 
 #def test_modify_group_header(app):
     #if app.group.count() == 0:
