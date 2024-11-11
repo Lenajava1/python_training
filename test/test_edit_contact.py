@@ -10,10 +10,9 @@ def test_modify_some_contact_name(app, db, check_ui):
     old_contacts = db.get_contact_list()
     contact = random.choice(old_contacts)
     #contact.id = old_contacts[index].id
-    app.contact.edit_contact_by_id(contact.id, Contact(firstname="Betty", lastname="Swanson"))
+    app.contact.edit_contact_by_id(contact.id, Contact(firstname="Betty", lastname="Swanson", middlename="Van", nickname="Bat", title="QA", company_name="Y-bank", address="CA, Avenue Bay 122/A, 44444", mobile="89898966666", email="betty-swanson@yahooo.com"))
     assert len(old_contacts) == app.contact.count()
     new_contacts = db.get_contact_list()
-    #old_contacts[index] = contact
     if check_ui:
        assert sorted(old_contacts, key=Contact.id_or_max) == sorted(new_contacts, key=Contact.id_or_max)
 

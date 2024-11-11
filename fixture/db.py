@@ -15,10 +15,10 @@ class DbFixture:
         list = []
         cursor = self.connection.cursor()
         try:
-            cursor.execute("SELECT group_id, group_name, group_header, group_footer FROM group_list")
+            cursor.execute("SELECT group_id, group_name FROM group_list WHERE deprecated='0000-00-00 00:00:00'")
             for row in cursor:
-                (id, name, header, footer) = row
-                list.append(Group(id=int(id), name=name, header=header, footer=footer))
+                (id, name) = row
+                list.append(Group(id=int(id), name=name))
         finally:
             cursor.close()
         return list
@@ -27,10 +27,10 @@ class DbFixture:
         list = []
         cursor = self.connection.cursor()
         try:
-            cursor.execute("SELECT id, firstname, middlename, lastname, nickname, company, title, address, home, mobile, work, email FROM addressbook")
+            cursor.execute("SELECT id, lastname, firstname, address FROM addressbook")
             for row in cursor:
-                (id, firstname, middlename, lastname, nickname, company, title, address, home, mobile, work, email) = row
-                list.append(Contact(id=int(id),firstname=firstname, middlename=middlename, lastname=lastname, nickname=nickname, company_name=company, title=title, address=address, homephone=home, mobile=mobile, workphone=work, email=email))
+                (id, lastname, firstname, address) = row
+                list.append(Contact(id=int(id),lastname=lastname, firstname=firstname, address=address))
         finally:
             cursor.close()
         return list
