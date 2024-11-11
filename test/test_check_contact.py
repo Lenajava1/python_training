@@ -21,7 +21,7 @@ def test_contact_from_view_page(app):
     assert contact_from_view_page.homephone == contact_from_edit_page.homephone
     assert contact_from_view_page.workphone == contact_from_edit_page.workphone
     assert contact_from_view_page.mobile == contact_from_edit_page.mobile
-
+    assert contact_from_view_page.fax == contact_from_edit_page.fax
 
 def merge_emails_like_on_home_page(contact):
     return "\n".join(filter (lambda x: x != "",
